@@ -10,20 +10,59 @@ $(function(){
     $("#saveToBook").click(function(){ //copies card from GOAL popup and modifies it and adds to scrapbook
        saveToBook() 
     });
+    $("#settingsButton").click(function(){
+        $("#settings").modal();
+    });
+    game.chances = document.getElementById("chancesOption").value; //added here because it needs to wait until the html for chancesOption actually loads before setting the value
 });
 var alphabet = 'abcdefghijklmnopqrstuvwxyz-' //letters and symbols that exist in player names
 
 var game = {
+    difficulty: function(){
+        var dif;
+        if(document.getElementById('allCountriesRadio').checked){
+            dif = "hard"
+        }else{
+            dif = "easy"
+        }
+        return dif
+    },
+    positions: function(){
+        var checkboxes = document.getElementsByName("checkbox");
+        var checked =[];
+        for (var i in checkboxes){
+            if (checkboxes[i].checked){
+                checked.push(checkboxes[i].value);
+            }
+        }
+        return checked
+    },
     setIndex : function(){
-        var playerIndex = Math.floor(Math.random() * 736) + 1;
-        game.index = playerIndex;
-        game.player = players[game.index];
+        var posList = game.positions()
+        var allPlayers;
+        if (posList.length <4){
+            allPlayers = filterPosition(posList)
+        }
+        else{
+            allPlayers = players
+        }
+
+        if (game.difficulty() == "hard"){
+            var playerIndex = Math.floor(Math.random() * allPlayers.length);
+            game.index = playerIndex;
+            game.player = allPlayers[game.index];
+        }
+        else{
+            var topPlayers = topCountries(allPlayers);
+            var playerIndex = Math.floor(Math.random() * topPlayers.length);
+            game.index = playerIndex;
+            game.player = topPlayers[playerIndex]
+        }
     },
     userGuesses : [],
     correctGuessCount:0,
     winCount : 0,
     loseCount: 0,
-    chances: 10,
     displayArr:[],
     display: function(){
         var display = "";
@@ -41,7 +80,7 @@ function resetGame(){
     game.active=true;
     game.userGuesses=[];
     game.correctGuessCount=0;
-    game.chances=10;
+    game.chances = document.getElementById("chancesOption").value;
     game.displayArr=[],
 
     $("#ballImageAI").css({
