@@ -1,0 +1,31 @@
+World Cup Hangman
+
+Create Player Objects
+    player.name
+    player.nationality
+    player.position
+
+create game Object
+    game.setup(){
+        Randomly Select one player
+        Create "display" array
+            displayArr = ["_","_","_","_" ...]
+        game.display = displayArr
+    }
+    game.userGuess(guess){
+    }
+    game.chances
+    game.correctGuessCount
+
+
+isGoodGuess(){
+    player.name.indexOf(game.userGuess)>-1
+}
+didWin(){
+    game.correctGuessCount == player.name.length
+}
+
+jquery--> create visual representation of displayArr
+
+
+

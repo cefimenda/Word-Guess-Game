@@ -1,0 +1,58 @@
+@font-face {
+    font-family: 'fifaFont'; /*a name to be used later*/
+    src: url('fifaFont.ttf'); /*URL to font*/
+}
+.title{
+    font-family:"fifaFont";
+    text-align:center;
+    color: white;
+}
+body{
+    background-image: url("../images/WorldCupBackground.jpg");
+}
+.rosso{
+    background: #D30208;
+    color: white;
+}
+.midnightBlue{
+    background: #015386;
+    color: white;
+}
+.honoluluBlue{
+    background: #0074B1;
+    color: white;
+}
+.gold{
+    background: #E5C685;
+    color: black;
+}
+.antiqueWhite{
+    background: #F5EED5;
+    color: black;
+}
+#fieldImage{
+    bottom: 0%;
+}
+#ballImageUser{
+    position:absolute;
+    bottom:50%;
+    left: 42%;
+}
+#ballImageAI{
+    position:absolute;
+    top:50%;
+    left: 42%;
+}
+.field{
+    position:relative;
+    max-height: 300px;
+    max-width: 200px;
+}
+.text-warning{
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-family:"fifaFont";
+    font-size: 30px;
+}
+#score{
+    font-family:"fifaFont";
+}
