@@ -140,7 +140,7 @@ function didWin(){
         
         //adds card html to winModal
         $("#win-modal-body").html(            
-        '<div class="card d.block mx-auto text-center" style="width: 18rem;">'+
+        '<div class="card d.block mx-auto text-center honoluluBlue shadow-lg" style="width: 18rem;">'+
             '<img class="card-img-top" src="'+game.player.image+'" alt="Player Image">'+
             '<div class="card-body">'+
                 '<h5 class="card-title">'+game.player.name+'</h5>'+
