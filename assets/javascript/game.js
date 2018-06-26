@@ -52,7 +52,6 @@ function updateScreen(){
     $("#display").html(game.display())
     $("#guesses").html(game.userGuesses)
     $("#score").html('<p style= "float:left">Human</p>'+ game.winCount+ " - "+ game.loseCount+' <p style= "float:right">Computer</p>')
-    
 }
 
 function aiBallMovement(){
@@ -103,7 +102,7 @@ function didWin(){
     if (game.displayArr.indexOf("__") == -1) {
         console.log(game.displayArr);
         $("#winModal").modal();
-        $(".modal-body").html(            '<div class="card d.block mx-auto text-center" style="width: 18rem;">'+
+        $("#win-modal-body").html(            '<div class="card d.block mx-auto text-center" style="width: 18rem;">'+
         '<img class="card-img-top" src="'+game.player.image+'" alt="Player Image">'+
         '<div class="card-body">'+
             '<h5 class="card-title">'+game.player.name+'</h5>'+
@@ -122,7 +121,6 @@ function didLose(){
         return true;
     }else return false;
 }
-
 
 
 document.onkeyup = function(event){
