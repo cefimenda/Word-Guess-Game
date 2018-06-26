@@ -56,3 +56,8 @@ body{
 #score{
     font-family:"fifaFont";
 }
+#popover{
+    position:absolute;
+    right:5px;
+    top:3px;
+}

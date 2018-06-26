@@ -20,30 +20,47 @@
     <title>World Cup Hangman</title>
 </head>
 <body>
+    <!-- Modals -->
     <!-- Modal -->
-      
-      <!-- Modal -->
-      <div class="modal" id = "winModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog .modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="header text-lg">
-                    <h1 class ="text-center text-warning my-3">GOAAAAAAAALLL!!!!</h1>
-                    <hr>
-                  </button>
-                </div>
-                <div id = "win-modal-body"class="modal-body">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save Card</button>
-                </div>
-              </div>
+    <div class="modal" id = "scrapbook" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="header text-lg">
+                <h1 class ="text-center text-warning my-3">Scrapbook</h1>
+                <hr>
+                </button>
+            </div>
+            <div id = "scrapbook-body"class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
             </div>
         </div>
+    </div>
+        <!-- End Modal -->
+    <!-- Modal -->
+    <div class="modal" id = "winModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="header text-lg">
+                <h1 class ="text-center text-warning my-3">GOAAAAAAAALLL!!!!</h1>
+                <hr>
+                </button>
+            </div>
+            <div id = "win-modal-body"class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id = "saveToBook" class="btn btn-primary">Save Card</button>
+            </div>
+            </div>
+        </div>
+    </div>
     <!-- End Modal -->
     <!-- Modal -->
     <div class="modal" id = "loseModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog .modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="header text-lg">
                 <h1 class ="text-center text-warning my-3">You Lost!</h1>
@@ -81,17 +98,19 @@
                 <!-- Target Word Display -->
                 <div class="row">
                     <div class="col-12 w-100 p-3 rosso shadow-lg text-light text-center mb-2 d-none">
-                        Target Word
+                        <p id="playerInfo"></p>
                         <h2 id="display"></h2>
                     </div>
                 </div>
+                <!-- Wrong Guesses Display -->
                 <div class="row">
                     <div class="col-12 w-100 p-3 rosso shadow-lg text-center mt-2 d-none">
                         Wrong Guesses
                         <h2 id = "guesses"></h2>
+
                     </div>
                     <button id = "displayButton" class = "btn-outline-light w-100 mt-2">Start</button>
-                    <button id = "seeCardButton" class = "btn-outline-light w-100 mt-2 d-none">See Card</button>
+                    <button id = "seeCardButton" class = "btn-outline-light w-100 mt-2 d-none">See Scrapbook</button>
                 </div>
             </div>
                 <!-- Result Animation -->
@@ -103,7 +122,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </body>
 </html>
