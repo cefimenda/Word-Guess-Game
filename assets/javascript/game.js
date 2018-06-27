@@ -13,7 +13,12 @@ $(function(){
     $("#settingsButton").click(function(){
         $("#settings").modal();
     });
+
     game.chances = document.getElementById("chancesOption").value; //added here because it needs to wait until the html for chancesOption actually loads before setting the value
+
+    $("#displayInfoBox").click(function(){
+        $("#playerInfo").toggleClass("d-none")
+    });
 });
 var alphabet = 'abcdefghijklmnopqrstuvwxyz-' //letters and symbols that exist in player names
 
