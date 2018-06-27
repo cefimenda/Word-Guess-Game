@@ -53,8 +53,8 @@ body{
     font-family:"fifaFont";
     font-size: 50px;
     color: #0074B1;
-
 }
+
 #score{
     font-family:"fifaFont";
 }
@@ -66,4 +66,10 @@ body{
 }
 #chances{
     color:white;
+}
+
+@media only screen and (max-width: 780px) {
+    .modalTitle{
+        font-size:30px;
+    }
 }

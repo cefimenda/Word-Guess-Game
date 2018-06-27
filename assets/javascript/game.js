@@ -41,6 +41,16 @@ $(function(){
 
     $("#initHidden").click(function(){
         $("#textInput").focus()
+    });
+    $("#playWorldCup").click(function(){
+        if($("#playWorldCup").hasClass("disabled")){
+            $("#noWorldCupModal").modal();
+        }else{
+            $("#worldCupModal").modal();
+        }
+    });
+    $("#continueButton").click(function(){
+        game.playWorldCup()
     })
 
 });
@@ -115,6 +125,61 @@ var game = {
         return display;
     },
     scrapbook:[],
+    squad:{
+        keepers: function(){
+            var list = []
+            for (var i in game.scrapbook){
+                var player = game.scrapbook[i]
+                if (player.pos == "Goalkeeper"){
+                    list.push(player)
+                }
+            }
+            return list
+        },
+        defenders: function(){
+            var list = []
+            for (var i in game.scrapbook){
+                var player = game.scrapbook[i]
+                if (player.pos == "Defender"){
+                    list.push(player)
+                }
+            }
+            return list
+        },
+        midfielders: function(){
+            var list = []
+            for (var i in game.scrapbook){
+                var player = game.scrapbook[i]
+                if (player.pos == "Midfielder"){
+                    list.push(player)
+                }
+            }
+            return list
+        },
+        forwards: function(){
+            var list = []
+            for (var i in game.scrapbook){
+                var player = game.scrapbook[i]
+                if (player.pos == "Forward"){
+                    list.push(player)
+                }
+            }
+            return list
+        },
+        qualityIndex: function(){
+            var qi = 0;
+            var qualList = ["Italy","Argentina","Portugal","England","Spain","Germany","Belgium","France","Brazil"];
+            for (var i in game.scrapbook){
+                var player = game.scrapbook[i]
+                var index = qualList.indexOf(player.nat)
+                if(index>-1){
+                    qi += 2+index;
+                }else{
+                    qi += 1;
+                }
+            } return qi/18 //max qi in 11 player squad:6.11  max qi in 18 player squad: 10 
+        }
+    },
     active: true,
     soundEffects: function(){
         var isOn = document.getElementById("soundEffectsOption").value;
@@ -122,11 +187,46 @@ var game = {
             goalSound = new sound("assets/sounds/goalSound.mov");
             worldCupSong = new sound("assets/sounds/worldCupSong.mp3")
             wrongAnswerSound = new sound("assets/sounds/wrongAnswer.mov")
+            championeSound = new sound("assets/sounds/champione.mov")
         }
         else{
             goalSound = new sound("");
             worldCupSong = new sound("")
             wrongAnswerSound = new sound("")
+            championeSound = new sound("")
+        }
+    },
+    isWorldCup: function(){
+        if (game.scrapbook.length>=11){
+            $("#playWorldCup").removeClass("disabled")
+            $("#playWorldCup").removeClass("btn-outline-light")
+            $("#playWorldCup").addClass("btn-light")
+        }
+    },
+    playWorldCup: function(){
+        if (game.squad.keepers.length > 0 && game.squad.defenders.length >=4 && game.squad.midfielders.length >=3 && game.squad.forwards.length >=3){
+            if (game.squad.qualityIndex() > 6){
+                championeSound.sound.currentTime = 0;
+                championeSound.play()
+                $("#wonWorldCupModal").modal();
+                game.winCount=0;
+                game.loseCount=0;
+                game.scrapbook=[];
+                $("#scrapbook-body").html("");
+
+            }else{
+                $("#lostWorldCupModal").modal();
+                game.winCount=0;
+                game.loseCount=0;
+                game.scrapbook=[];
+                $("#scrapbook-body").html("");
+            }
+        }else{
+            $("#lostWorldCupModal").modal();
+            game.winCount=0;
+            game.loseCount=0;
+            game.scrapbook=[]; 
+            $("#scrapbook-body").html("");
         }
     }
 }
@@ -179,8 +279,8 @@ function userBallMovement(){
 
 //sets up game every time a user moves on to the next player
 function setup(){
-    resetGame()
-    game.soundEffects()
+    resetGame();
+    game.soundEffects();
     $(".initHidden").removeClass("d-none") //only valid for first start
     game.setIndex();
     var displayArr = [];
@@ -195,6 +295,7 @@ function setup(){
     $("#displayButton").text("Next Player")
     updateScreen()
 }
+
 
 function saveToBook(){
     if(game.scrapbook.indexOf(game.player) == -1){ //if the player doesn't already exist in the scrapbook
@@ -291,6 +392,7 @@ document.onkeyup = function(event){
             if (didWin()){
                 goalSound.play();
                 game.active = false; //deactivates game so that keyboard buttons don't run this function until user moves on to the next player and game.active==true again
+                game.isWorldCup();
             }else{
                 if (didLose()){
                 wrongAnswerSound.play()
