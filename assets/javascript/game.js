@@ -19,8 +19,42 @@ $(function(){
     $("#displayInfoBox").click(function(){
         $("#playerInfo").toggleClass("d-none")
     });
+
+    goalSound = new sound("assets/sounds/goalSound.mov");
+    worldCupSong = new sound("assets/sounds/worldCupSong.mp3")
+    wrongAnswerSound = new sound("assets/sounds/wrongAnswer.mov")
+
+    $("#volume").click(function(){
+        console.log("bastim")
+        if ($("#volumeIcon").hasClass("fa-pause-circle")){
+            $("#volumeIcon").removeClass("fa-pause-circle");
+            $("#volumeIcon").addClass("fa-play-circle")
+            console.log("duriyim")
+            worldCupSong.stop()
+        }else if ($("#volumeIcon").hasClass("fa-play-circle")){
+            $("#volumeIcon").removeClass("fa-play-circle");
+            $("#volumeIcon").addClass("fa-pause-circle")
+            console.log("basliyim")
+            worldCupSong.play()
+        }
+    });
+
 });
 var alphabet = 'abcdefghijklmnopqrstuvwxyz-' //letters and symbols that exist in player names
+function sound(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+        this.play = function(){
+            this.sound.play();
+        }
+        this.stop = function(){
+            this.sound.pause();
+        }
+}
 
 var game = {
     difficulty: function(){
@@ -82,6 +116,10 @@ var game = {
 
 //resets core game stats when the user continues on to the next player
 function resetGame(){
+    wrongAnswerSound.stop();
+    wrongAnswerSound.sound.currentTime = 0;
+    goalSound.stop();
+    goalSound.sound.currentTime = 0;
     game.active=true;
     game.userGuesses=[];
     game.correctGuessCount=0;
@@ -195,6 +233,8 @@ function didWin(){
 
         game.winCount += 1
         $("#seeCardButton").removeClass('d-none'); //allows user to be able to open up the scrapbook after the first win
+
+
         return true;
     }else return false;
 }
@@ -229,9 +269,11 @@ document.onkeyup = function(event){
                 aiBallMovement()
             }
             if (didWin()){
+                goalSound.play();
                 game.active = false; //deactivates game so that keyboard buttons don't run this function until user moves on to the next player and game.active==true again
             }else{
                 if (didLose()){
+                wrongAnswerSound.play()
                 game.active = false; //deactivates game so that keyboard buttons don't run this function until user moves on to the next player and game.active==true again
                 }
             }

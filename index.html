@@ -11,6 +11,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <!-- Personal References -->
     <link href="assets/css/style.css" rel="stylesheet">
     <script src = "assets/javascript/playerObjects.js" type = "text/javascript"></script>
@@ -173,12 +175,19 @@
         <!-- Game Window -->
                 <!-- Scores -->
         <div class="row">
-            <div class="col-3"></div>
+            <div class="col-3">
+                <div id = "volume" class = "mt-3">
+                    <i id = "volumeIcon" class="fas fa-play-circle rounded bg-light float-left p-1"></i><p class = "text-light"> &nbsp WC'18 Official Song</p>
+                </div>
+            </div>
             <div class="col-6 bg-light p-4 mx-auto rounded my-3 text-center">
                 <h2 id ="score">Click Start to Begin</h2>
             </div>
             <div class="col-3">
                 <button id="settingsButton" class = "btn-outline-light float-right mt-3">Settings</button>
+                <br>
+                <br>
+                <br>
             </div>
         </div>
         <div class="row">
