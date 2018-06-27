@@ -23,6 +23,7 @@ $(function(){
     goalSound = new sound("assets/sounds/goalSound.mov");
     worldCupSong = new sound("assets/sounds/worldCupSong.mp3")
     wrongAnswerSound = new sound("assets/sounds/wrongAnswer.mov")
+    championeSound = new sound("assets/sounds/champione.mov")
 
     $("#volume").click(function(){
         console.log("bastim")
@@ -126,6 +127,13 @@ var game = {
     },
     scrapbook:[],
     squad:{
+        load: function(){
+            game.squad.keepers();
+            game.squad.defenders();
+            game.squad.midfielders();
+            game.squad.forwards();
+            game.squad.qualityIndex();
+        },
         keepers: function(){
             var list = []
             for (var i in game.scrapbook){
@@ -204,17 +212,21 @@ var game = {
         }
     },
     playWorldCup: function(){
-        if (game.squad.keepers.length > 0 && game.squad.defenders.length >=4 && game.squad.midfielders.length >=3 && game.squad.forwards.length >=3){
+
+        if (game.squad.keepers().length > 0 && game.squad.defenders().length >=4 && game.squad.midfielders().length >=3 && game.squad.forwards().length >=3){
             if (game.squad.qualityIndex() > 6){
+                $("#wonWorldCupModal").modal();
                 championeSound.sound.currentTime = 0;
                 championeSound.play()
-                $("#wonWorldCupModal").modal();
                 game.winCount=0;
                 game.loseCount=0;
                 game.scrapbook=[];
                 $("#scrapbook-body").html("");
 
             }else{
+                console.log("lost by quality")
+                console.log(game.squad.qualityIndex())
+                console.log(game.squad.qualityIndex()>6)
                 $("#lostWorldCupModal").modal();
                 game.winCount=0;
                 game.loseCount=0;
@@ -222,6 +234,8 @@ var game = {
                 $("#scrapbook-body").html("");
             }
         }else{
+            console.log("lost by team style")
+            console.log(game.squad)
             $("#lostWorldCupModal").modal();
             game.winCount=0;
             game.loseCount=0;
