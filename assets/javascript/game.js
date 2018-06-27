@@ -120,6 +120,7 @@ var game = {
 
 //resets core game stats when the user continues on to the next player
 function resetGame(){
+    $("#textInput").val("");
     wrongAnswerSound.stop();
     wrongAnswerSound.sound.currentTime = 0;
     goalSound.stop();
