@@ -26,16 +26,13 @@ $(function(){
     championeSound = new sound("assets/sounds/champione.mov")
 
     $("#volume").click(function(){
-        console.log("bastim")
         if ($("#volumeIcon").hasClass("fa-pause-circle")){
             $("#volumeIcon").removeClass("fa-pause-circle");
             $("#volumeIcon").addClass("fa-play-circle")
-            console.log("duriyim")
             worldCupSong.stop()
         }else if ($("#volumeIcon").hasClass("fa-play-circle")){
             $("#volumeIcon").removeClass("fa-play-circle");
             $("#volumeIcon").addClass("fa-pause-circle")
-            console.log("basliyim")
             worldCupSong.play()
         }
     });
@@ -224,9 +221,6 @@ var game = {
                 $("#scrapbook-body").html("");
 
             }else{
-                console.log("lost by quality")
-                console.log(game.squad.qualityIndex())
-                console.log(game.squad.qualityIndex()>6)
                 $("#lostWorldCupModal").modal();
                 game.winCount=0;
                 game.loseCount=0;
@@ -234,8 +228,6 @@ var game = {
                 $("#scrapbook-body").html("");
             }
         }else{
-            console.log("lost by team style")
-            console.log(game.squad)
             $("#lostWorldCupModal").modal();
             game.winCount=0;
             game.loseCount=0;
