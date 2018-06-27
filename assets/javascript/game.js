@@ -190,15 +190,13 @@ var game = {
         var isOn = document.getElementById("soundEffectsOption").value;
         if (isOn == "On"){
             goalSound = new sound("assets/sounds/goalSound.mov");
-            worldCupSong = new sound("assets/sounds/worldCupSong.mp3")
-            wrongAnswerSound = new sound("assets/sounds/wrongAnswer.mov")
-            championeSound = new sound("assets/sounds/champione.mov")
+            wrongAnswerSound = new sound("assets/sounds/wrongAnswer.mov");
+            championeSound = new sound("assets/sounds/champione.mov");
         }
         else{
             goalSound = new sound("");
-            worldCupSong = new sound("")
-            wrongAnswerSound = new sound("")
-            championeSound = new sound("")
+            wrongAnswerSound = new sound("");
+            championeSound = new sound("");
         }
     },
     isWorldCup: function(){
