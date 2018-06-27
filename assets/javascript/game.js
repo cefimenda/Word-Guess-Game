@@ -39,6 +39,8 @@ $(function(){
         }
     });
 
+    $("#initHidden").trigger("focus");
+
 });
 var alphabet = 'abcdefghijklmnopqrstuvwxyz-' //letters and symbols that exist in player names
 function sound(src) {
@@ -140,6 +142,7 @@ function updateScreen(){
     $("#guesses").html(game.userGuesses)
     $("#score").html('<p style= "float:left">Human</p>'+ game.winCount+ " - "+ game.loseCount+' <p style= "float:right">Computer</p>')
     $("#playerInfo").text(game.player.pos+ " from "+ game.player.nat)
+    $("#chances").text("Chances Left: "+ game.chances)
 }
 
 //moves computer ball every time user picks a wrong guess
@@ -161,7 +164,7 @@ function userBallMovement(){
 //sets up game every time a user moves on to the next player
 function setup(){
     resetGame()
-    $(".col-12").removeClass("d-none") //only valid for first start
+    $(".initHidden").removeClass("d-none") //only valid for first start
     game.setIndex();
     var displayArr = [];
     for(var i=0 ; i<game.player.name.length ; i++){ //creates the __ __ __ __ based on player names

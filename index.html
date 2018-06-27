@@ -175,15 +175,17 @@
         <!-- Game Window -->
                 <!-- Scores -->
         <div class="row">
-            <div class="col-3">
+            <div class="col-sm-3 col-12">
                 <div id = "volume" class = "mt-3">
                     <i id = "volumeIcon" class="fas fa-play-circle rounded bg-light float-left p-1"></i><p class = "text-light"> &nbsp WC'18 Official Song</p>
                 </div>
             </div>
-            <div class="col-6 bg-light p-4 mx-auto rounded my-3 text-center">
+            <div class="col-sm-6 col-12 bg-light p-4 mx-auto rounded my-3 text-center">
                 <h2 id ="score">Click Start to Begin</h2>
             </div>
-            <div class="col-3">
+            <div id = "chances" class="d-sm-none d-block float-left col-6 mt-3">
+            </div>
+            <div class="col-sm-6 col-6">
                 <button id="settingsButton" class = "btn-outline-light float-right mt-3">Settings</button>
                 <br>
                 <br>
@@ -191,17 +193,17 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-sm-8 col-12">
                 <!-- Target Word Display -->
                 <div class="row">
-                    <div class="col-12 w-100 p-3 rosso shadow-lg text-light text-center mb-2 d-none">
+                    <div class="initHidden col-12 w-100 p-3 rosso shadow-lg text-light text-center mb-2 d-none">
                         <p id="playerInfo"></p>
                         <h2 id="display"></h2>
                     </div>
                 </div>
                 <!-- Wrong Guesses Display -->
                 <div class="row">
-                    <div class="col-12 w-100 p-3 rosso shadow-lg text-center mt-2 d-none">
+                    <div class="initHidden col-12 w-100 p-3 rosso shadow-lg text-center mt-2 d-none">
                         Wrong Guesses
                         <h2 id = "guesses"></h2>
 
@@ -211,8 +213,8 @@
                 </div>
             </div>
                 <!-- Result Animation -->
-            <div class="col-4">
-                <div class = "field d-block mx-auto">
+            <div class="col-sm-4 col-12 d-sm-block d-none">
+                <div class = "field d-block mx-auto shadow-lg">
                     <img id = "fieldImage" src = "assets/images/FootballField.png" height = "100%" width ="100%">
                     <img id = "ballImageUser" src = "assets/images/WorldCupBall.png" height = "10%" width ="15%">
                     <img id = "ballImageAI" src = "assets/images/WorldCupBall.png" height = "10%" width ="15%">
