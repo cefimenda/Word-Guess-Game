@@ -39,7 +39,9 @@ $(function(){
         }
     });
 
-    $("#initHidden").trigger("focus");
+    $("#initHidden").click(function(){
+        $("#textInput").focus()
+    })
 
 });
 var alphabet = 'abcdefghijklmnopqrstuvwxyz-' //letters and symbols that exist in player names
