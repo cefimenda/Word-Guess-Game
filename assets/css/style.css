@@ -55,6 +55,12 @@ body{
     color: #0074B1;
 }
 
+.modalTitleSub{
+    font-family:"fifaFont";
+    font-size: 30px;
+    color: #0074B1;
+}
+
 #score{
     font-family:"fifaFont";
 }

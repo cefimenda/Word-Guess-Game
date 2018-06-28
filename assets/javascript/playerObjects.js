@@ -1540,7 +1540,7 @@ var players = [
     pos: 'Defender',
     image:
      'https://api.fifa.com/api/v1/picture/players/2018fwc/299442_sq-300_jpg?allowDefaultPicture=true' },
-  { name: 'Jesse  LINGARD',
+  { name: 'Jesse LINGARD',
     nat: 'England',
     pos: 'Midfielder',
     image:

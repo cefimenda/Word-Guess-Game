@@ -6,10 +6,12 @@ $(function(){
      });
     $("#seeCardButton").click(function(){
         $("#scrapbook").modal();
+        var squadCount = 0;
         createSquadItem(game.squad.keepers(),"keeperRow")
         createSquadItem(game.squad.defenders(),"defenderRow")
         createSquadItem(game.squad.midfielders(),"midfielderRow")
         createSquadItem(game.squad.forwards(),"forwardRow")
+        createSquadItem(game.squad.subs(), "subRow")
     });
     $("#saveToBook").click(function(){ //copies card from GOAL popup and modifies it and adds to scrapbook
        saveToBook() 
@@ -53,6 +55,7 @@ $(function(){
     });
     $("#continueButton").click(function(){
         game.playWorldCup()
+        $("#displayButton").show()
     })
 
 });
@@ -73,17 +76,35 @@ function sound(src) {
 }
 
 function createSquadItem(playersList,targetId){
+    
     $("#"+targetId).children().html("")
+
+    // var subsList=[];
+
+    // if (squadCount>11){
+    //     subsList = playersList
+    //     playersList =[]
+    // };
+
+
+    
+    // if (targetId == "keeperRow" && playersList.length >1){ //sends additional goalkeepers to subs
+    //     subsList = playersList.splice(1)
+    // };
     for (var i in playersList){
-        var player = playersList[i];
+        createPlayerCard(playersList[i],targetId);
+    }
+}
+
+function createPlayerCard(player,targetId){
+
         var newCard = $("<div>");
         newCard.addClass("card d.block text-center honoluluBlue shadow-lg float-left mx-1 my-1");
         newCard.css({
-            "width": "150px",
-            "height": "250px"
+            "width": "140px",
+            "height": "190px"
         })
         $("#"+targetId).children().append(newCard)
-        console.log(newCard)
 
         var image = $("<img>");
         image.addClass("card-img-top");
@@ -92,7 +113,7 @@ function createSquadItem(playersList,targetId){
         newCard.append(image)
 
         var cardBody = $("<div>");
-        cardBody.addClass("card-body pt-1")
+        cardBody.addClass("card-body pt-1 px-0")
         newCard.append(cardBody)
 
         var title = $("<h5>");
@@ -101,7 +122,24 @@ function createSquadItem(playersList,targetId){
             "font-size":"15px",
             "font-weight": "bold"
         });
-        title.text(player.name);
+
+        var fullName = player.name.split(" ") //Removes First Name so that scrapbook cards can be smaller
+        var displayName = "";
+        var displayNameArr = [];
+            console.log(fullName)
+            displayNameArr = fullName.slice(1)
+            console.log(displayNameArr)
+            for (var i in displayNameArr){
+                displayName += displayNameArr[i]+" "
+            }
+            console.log(displayName)
+
+        if(displayNameArr == [] || displayName == undefined || displayName == "" || displayName == " " || displayNameArr.length == 0){
+            displayName = player.name
+        }
+
+
+        title.text(displayName);
         cardBody.append(title)
 
         var par = $("<p>");
@@ -109,14 +147,12 @@ function createSquadItem(playersList,targetId){
         par.css({
             "font-size": "12px"
         });
-        par.text(player.pos +" from "+ player.nat)
+        par.text(player.nat)
         cardBody.append(par)
-    }
+    
 }
 
-
-
-var game = {
+var game = { 
     difficulty: function(){
         var dif;
         if(document.getElementById('allCountriesRadio').checked){
@@ -172,17 +208,30 @@ var game = {
     },
     scrapbook:[],
     squad:{
+        firstTeam : function(){
+            return game.scrapbook.slice(0,11)
+        },
+        subs: function(){
+            return game.scrapbook.slice(11)
+        },
+        fullSquad : function(){
+            var fullList = [];
+            fullList.concat(game.squad.keepers(),game.squad.defenders(),game.squad.midfielders(),game.squad.forwards());
+            return fullList
+        },
         load: function(){
             game.squad.keepers();
             game.squad.defenders();
             game.squad.midfielders();
             game.squad.forwards();
+            game.squad.firstTeam();
+            game.squad.subs();
             game.squad.qualityIndex();
         },
         keepers: function(){
             var list = []
-            for (var i in game.scrapbook){
-                var player = game.scrapbook[i]
+            for (var i in game.squad.firstTeam()){
+                var player = game.squad.firstTeam()[i]
                 if (player.pos == "Goalkeeper"){
                     list.push(player)
                 }
@@ -191,8 +240,8 @@ var game = {
         },
         defenders: function(){
             var list = []
-            for (var i in game.scrapbook){
-                var player = game.scrapbook[i]
+            for (var i in game.squad.firstTeam()){
+                var player = game.squad.firstTeam()[i]
                 if (player.pos == "Defender"){
                     list.push(player)
                 }
@@ -201,8 +250,8 @@ var game = {
         },
         midfielders: function(){
             var list = []
-            for (var i in game.scrapbook){
-                var player = game.scrapbook[i]
+            for (var i in game.squad.firstTeam()){
+                var player = game.squad.firstTeam()[i]
                 if (player.pos == "Midfielder"){
                     list.push(player)
                 }
@@ -211,8 +260,8 @@ var game = {
         },
         forwards: function(){
             var list = []
-            for (var i in game.scrapbook){
-                var player = game.scrapbook[i]
+            for (var i in game.squad.firstTeam()){
+                var player = game.squad.firstTeam()[i]
                 if (player.pos == "Forward"){
                     list.push(player)
                 }
@@ -237,9 +286,9 @@ var game = {
     soundEffects: function(){
         var isOn = document.getElementById("soundEffectsOption").value;
         if (isOn == "On"){
-            goalSound = new sound("assets/sounds/goalSound.mov");
-            wrongAnswerSound = new sound("assets/sounds/wrongAnswer.mov");
-            championeSound = new sound("assets/sounds/champione.mov");
+            goalSound = sound("assets/sounds/goalSound.mov");
+            wrongAnswerSound = sound("assets/sounds/wrongAnswer.mov");
+            championeSound = sound("assets/sounds/champione.mov");
         }
         else{
             goalSound = new sound("");
@@ -351,30 +400,11 @@ function setup(){
 
 function saveToBook(){
     if(game.scrapbook.indexOf(game.player) == -1){ //if the player doesn't already exist in the scrapbook
-        // var card = $("#win-modal-body").children().clone();
-        // card.addClass("float-left mx-1 my-1")
-        // card.css({
-        //     "height":"250px",
-        //     "width":"150px"
-        // });
-        // var body = card.children().first().next()
-        // body.addClass("pt-1")
-        // var title = body.children().first()
-        // title.addClass("mb-1 mt-0")
-        // title.css({
-        //     "font-size":"15px",
-        //     "font-weight":"bold"
-        // });
-        // var info = title.next()
-        // info.text(game.player.pos+" from "+game.player.nat);
-        // info.css({
-        //     "font-size":"12px"
-        // });
-        // card.removeClass("mx-auto")
-        // $("#scrapbook-body").append(card);
         $("#winModal").modal('toggle');
-
         game.scrapbook.push(game.player)
+    }
+    if (game.scrapbook.length==18){
+        $("#displayButton").hide()
     }
 }
 
