@@ -286,9 +286,9 @@ var game = {
     soundEffects: function(){
         var isOn = document.getElementById("soundEffectsOption").value;
         if (isOn == "On"){
-            goalSound = sound("assets/sounds/goalSound.mov");
-            wrongAnswerSound = sound("assets/sounds/wrongAnswer.mov");
-            championeSound = sound("assets/sounds/champione.mov");
+            goalSound = new sound("assets/sounds/goalSound.mov");
+            wrongAnswerSound = new sound("assets/sounds/wrongAnswer.mov");
+            championeSound = new sound("assets/sounds/champione.mov");
         }
         else{
             goalSound = new sound("");
