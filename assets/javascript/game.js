@@ -6,6 +6,10 @@ $(function(){
      });
     $("#seeCardButton").click(function(){
         $("#scrapbook").modal();
+        createSquadItem(game.squad.keepers(),"keeperRow")
+        createSquadItem(game.squad.defenders(),"defenderRow")
+        createSquadItem(game.squad.midfielders(),"midfielderRow")
+        createSquadItem(game.squad.forwards(),"forwardRow")
     });
     $("#saveToBook").click(function(){ //copies card from GOAL popup and modifies it and adds to scrapbook
        saveToBook() 
@@ -67,6 +71,50 @@ function sound(src) {
             this.sound.pause();
         }
 }
+
+function createSquadItem(playersList,targetId){
+    $("#"+targetId).children().html("")
+    for (var i in playersList){
+        var player = playersList[i];
+        var newCard = $("<div>");
+        newCard.addClass("card d.block text-center honoluluBlue shadow-lg float-left mx-1 my-1");
+        newCard.css({
+            "width": "150px",
+            "height": "250px"
+        })
+        $("#"+targetId).children().append(newCard)
+        console.log(newCard)
+
+        var image = $("<img>");
+        image.addClass("card-img-top");
+        image.attr("src",player.image);
+        image.attr("alt","Player Image");
+        newCard.append(image)
+
+        var cardBody = $("<div>");
+        cardBody.addClass("card-body pt-1")
+        newCard.append(cardBody)
+
+        var title = $("<h5>");
+        title.addClass("card-title mb-1 mt-0");
+        title.css({
+            "font-size":"15px",
+            "font-weight": "bold"
+        });
+        title.text(player.name);
+        cardBody.append(title)
+
+        var par = $("<p>");
+        par.addClass("card-text")
+        par.css({
+            "font-size": "12px"
+        });
+        par.text(player.pos +" from "+ player.nat)
+        cardBody.append(par)
+    }
+}
+
+
 
 var game = {
     difficulty: function(){
@@ -303,27 +351,27 @@ function setup(){
 
 function saveToBook(){
     if(game.scrapbook.indexOf(game.player) == -1){ //if the player doesn't already exist in the scrapbook
-        var card = $("#win-modal-body").children().clone();
-        card.addClass("float-left mx-1 my-1")
-        card.css({
-            "height":"250px",
-            "width":"150px"
-        });
-        var body = card.children().first().next()
-        body.addClass("pt-1")
-        var title = body.children().first()
-        title.addClass("mb-1 mt-0")
-        title.css({
-            "font-size":"15px",
-            "font-weight":"bold"
-        });
-        var info = title.next()
-        info.text(game.player.pos+" from "+game.player.nat);
-        info.css({
-            "font-size":"12px"
-        });
-        card.removeClass("mx-auto")
-        $("#scrapbook-body").append(card);
+        // var card = $("#win-modal-body").children().clone();
+        // card.addClass("float-left mx-1 my-1")
+        // card.css({
+        //     "height":"250px",
+        //     "width":"150px"
+        // });
+        // var body = card.children().first().next()
+        // body.addClass("pt-1")
+        // var title = body.children().first()
+        // title.addClass("mb-1 mt-0")
+        // title.css({
+        //     "font-size":"15px",
+        //     "font-weight":"bold"
+        // });
+        // var info = title.next()
+        // info.text(game.player.pos+" from "+game.player.nat);
+        // info.css({
+        //     "font-size":"12px"
+        // });
+        // card.removeClass("mx-auto")
+        // $("#scrapbook-body").append(card);
         $("#winModal").modal('toggle');
 
         game.scrapbook.push(game.player)
